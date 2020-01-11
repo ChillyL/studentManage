@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chilly.demo.mapper.StudentMapper"><!--java的mapper路径-->
+    <!--<resultMap id="唯一的标识"（自己起名字） type="映射的pojo对象"(实体类路径)>-->
+    <resultMap id="theStudentResultMap" type="com.chilly.demo.entity.Student">
+        <!--id column="表的主键字段，或者可以为查询语句中的别名字段"  property="映射pojo对象的主键属性" jdbcType="字段类型"(VARCHAR)) -->
+        <id column="student_id" property="student_id" jdbcType="VARCHAR"/>
+        <!--result column="表的一个字段（可以为任意表的一个字段）" jdbcType="字段类型" property="映射到pojo对象的一个属性（须为type定义的pojo对象中的一个属性）"-->
+        <result column="student_name" property="student_name" jdbcType="VARCHAR"/>
+        <result column="student_sex" property="student_sex" jdbcType="VARCHAR"/>
+        <result column="student_birth" property="student_birth" jdbcType="DATE"/>
+        <result column="student_origin" property="student_origin" jdbcType="VARCHAR"/>
+        <result column="department_name" property="student_department" jdbcType="VARCHAR"/>
+        <result column="student_status" property="student_status" jdbcType="VARCHAR"/>
+        <result column="student_resident" property="student_resident" jdbcType="TINYINT"/>
+        <result column="student_telephone" property="student_telephone" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--课程与成绩-->
+    <resultMap id="theGradesResultMap" type="com.chilly.demo.entity.Grades">
+        <!--id column="表的主键字段，或者可以为查询语句中的别名字段"  property="映射pojo对象的主键属性" jdbcType="字段类型"(VARCHAR)) -->
+        <id column="student_id" property="g_student_id" jdbcType="VARCHAR"/>
+        <!--result column="表的一个字段（可以为任意表的一个字段）" jdbcType="字段类型" property="映射到pojo对象的一个属性（须为type定义的pojo对象中的一个属性）"-->
+        <result column="course_id" property="g_course_id" jdbcType="VARCHAR"/>
+        <result column="course_name" property="g_course_name" jdbcType="VARCHAR"/>
+        <result column="course_sort" property="g_course_sort" jdbcType="VARCHAR"/>
+        <result column="course_credit" property="g_course_credit" jdbcType="INTEGER"/>
+        <result column="grades" property="grades" jdbcType="INTEGER"/>
+        <result column="course_time" property="g_course_time" jdbcType="VARCHAR"/>
+        <result column="grades_remark" property="grades_remark" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="getStudentList" resultMap="theStudentResultMap">
+        select student.student_id,student_name,student_sex,student_birth,
+                student_origin,department_name,student_status,student_resident,student_telephone
+        from student,department
+        where student.department_id = department.department_id;
+    </select>
+
+    <insert id="addStudent" parameterType="com.chilly.demo.entity.Student">
+        insert into student
+        values (#{student_id},#{student_name},#{student_sex},#{student_birth},#{student_origin},#{department_id},
+        #{student_status},#{student_resident},#{student_telephone});
+    </insert>
+
+    <delete id="deleteStudentById" parameterType="string">
+        delete from student
+        where student_id =#{studentId};
+    </delete>
+
+    <select id="getStudentById" parameterType="string" resultMap="theStudentResultMap">
+        select student.student_id,student_name,student_sex,student_birth,
+                student_origin,department_name,student_status,student_resident,student_telephone
+        from student,department
+        where student.department_id = department.department_id and student.student_id=#{studentId};
+    </select>
+    
+    <select id="getStudentGradesById" parameterType="string" resultMap="theGradesResultMap">
+        select course.course_name,course_sort,course.course_id,course_credit,grades,course_time
+        from course,grades
+        where course.course_id = grades.course_id and grades.student_id=#{studentId}
+        order by course_time ASC;
+    </select>
+
+    <update id="updateStudent" parameterType="com.chilly.demo.entity.Student">
+        update student
+        set
+        <if test="student_name != null">student_name =#{student_name},</if>
+        <if test="student_sex != null">student_sex =#{student_sex},</if>
+        <if test="student_birth != null">student_birth =#{student_birth},</if>
+        <if test="student_origin != null">student_origin =#{student_origin},</if>
+        <if test="department_id != null">department_id =#{department_id},</if>
+        <if test="student_status != null">student_status =#{student_status},</if>
+        <if test="student_resident != null">student_resident =#{student_resident},</if>
+        <if test="student_telephone != null">student_telephone =#{student_telephone}</if>
+        where student_id =#{student_id}
+    </update>
+
+</mapper>

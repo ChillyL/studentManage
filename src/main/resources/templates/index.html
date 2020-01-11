@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <!--链接一个外部样式表-->
+    <link rel="stylesheet" th:href="@{/css/adminlte.min.css}">
+    <link rel="stylesheet" th:href="@{/css/all.min.css}">
+    <!--  悬浮按钮设计 -->
+    <style>
+        .hover {
+            bottom: 1.25rem;
+            position: fixed;
+            right: 1.25rem;
+            z-index: 1032;
+        }
+    </style>
+    <title>主页</title>
+</head>
+<body>
+    <div th:replace="left :: left_navbar"></div>
+    <div class="content-wrapper">
+
+        <div class="container-fluid">
+            <div class="hero-unit well" style="height: 100%">
+                <h1 th:text="'Hello,' + ${session.loginUser} +'!'">
+                </h1>
+                <p>
+                    欢迎使用教学管理系统。
+                </p>
+            </div>
+        </div>
+
+        <a class="btn btn-primary btn-sm hover" href="/user/login">注销</a>
+        <!-- /.content-wrapper -->
+    </div>
+
+</body>
+</html>

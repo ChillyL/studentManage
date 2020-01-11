@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <!--链接一个外部样式表-->
+    <link rel="stylesheet" th:href="@{/css/adminlte.min.css}">
+    <link rel="stylesheet" th:href="@{/css/all.min.css}">
+    <!--  悬浮按钮设计 -->
+    <style>
+        .hover {
+            bottom: 1.25rem;
+            position: fixed;
+            right: 1.25rem;
+            z-index: 1032;
+        }
+    </style>
+    <title>学生信息详情</title>
+</head>
+<body>
+<!--引入导航-->
+<div th:replace="left :: left_navbar"></div>
+<!--  主页面  -->
+<div class="content-wrapper">
+    <div class="col-12">
+        <div class="card-body table-responsive p-0" style="height: 100%;">
+            <div class="card-header">
+                <h3 class="card-title">
+                    学生详情
+               </h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <dl class="row" th:object="${student}">
+                    <dt class="col-sm-4" >学号</dt>
+                    <dd class="col-sm-8" th:text="${student.student_id}"></dd>
+                    <dt class="col-sm-4">姓名</dt>
+                    <dd class="col-sm-8"th:text="${student.student_name}"></dd>
+                    <dt class="col-sm-4">性别</dt>
+                    <dd class="col-sm-8"th:text="${student.student_sex}"></dd>
+                    <dt class="col-sm-4">出生日期</dt>
+                    <dd class="col-sm-8"th:text="${student.student_birth}"></dd>
+                    <dt class="col-sm-4">生源地</dt>
+                    <dd class="col-sm-8"th:text="${student.student_origin}"></dd>
+                    <dt class="col-sm-4">院系</dt>
+                    <dd class="col-sm-8"th:text="${student.student_department}"></dd>
+                    <dt class="col-sm-4">政治面貌</dt>
+                    <dd class="col-sm-8"th:text="${student.student_status}"></dd>
+                    <dt class="col-sm-4">是否住宿</dt>
+                    <dd class="col-sm-8"th:text="${student.student_resident}"></dd>
+                    <dt class="col-sm-4">宿舍电话</dt>
+                    <dd class="col-sm-8"th:text="${student.student_telephone}"></dd>
+
+                    <dt class="col-sm-4"></dt>
+                    <dd class="col-sm-8">
+                        <a class="btn btn-primary btn-sm" th:href="@{/student/toUpdateStudentById(studentId=${student.student_id})}">修改</a>
+                    </dd>
+                </dl>
+            </div>
+            <!--     课程与成绩       -->
+            <div class="card-header">
+                <h3 class="card-title">
+                    课程成绩
+                </h3>
+            </div>
+            <table class="table table-head-fixed">
+                <thead>
+                <tr>
+                    <th>课程时间</th>
+                    <th>课程编号</th>
+                    <th>课程名称</th>
+                    <th>课程类型</th>
+                    <th>学分</th>
+                    <th>成绩</th>
+                    <th>备注</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${gradesList.isEmpty()}">
+                    <td colspan="3">无课程成绩</td>
+                </tr>
+                <tr  th:each="grades : ${gradesList}">
+                    <th scope="row" th:text="${grades.g_course_time}">1</th>
+                    <td th:text="${grades.g_course_id}"></td>
+                    <td th:text="${grades.g_course_name}"></td>
+                    <td th:text="${grades.g_course_sort}"></td>
+                    <td th:text="${grades.g_course_credit}"></td>
+                    <td th:text="${grades.grades}"></td>
+                    <td th:text="${grades.grades_remark}"></td>
+                </tr>
+                </tbody>
+            </table>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+        <!--  返回按钮  -->
+        <a id="back-to-top" onclick="javascript:history.back(-1);" class="btn btn-primary hover" role="button" >
+            返回
+        </a>
+    </div>
+</div>
+</body>
+</html>

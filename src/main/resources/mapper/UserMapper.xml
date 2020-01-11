@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chilly.demo.mapper.UserMapper"><!--java的XXXmapper路径-->
+    <!--<resultMap id="唯一的标识"（自己起名字） type="映射的pojo对象"(实体类路径)>-->
+    <resultMap id="theResultMap" type="com.chilly.demo.entity.User">
+        <!--id column="表的主键字段，或者可以为查询语句中的别名字段" jdbcType="字段类型"(VARCHAR) property="映射pojo对象的主键属性") -->
+        <id column="user_id" property="userId" jdbcType="INTEGER"/>
+        <!--result column="表的一个字段（可以为任意表的一个字段）" jdbcType="字段类型" property="映射到pojo对象的一个属性（须为type定义的pojo对象中的一个属性）"-->
+        <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+
+        <result column="user_password" property="userPassword" jdbcType="VARCHAR"/>
+    </resultMap>
+    <!--<select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">-->
+
+    <select id="getUser" resultMap="theResultMap">
+        select *
+        from user
+        where user_name =#{userName,jdbcType=VARCHAR} AND user_password =#{userPassword,jdbcType=VARCHAR}
+    </select>
+
+</mapper>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chilly.demo.mapper.TeacherMapper"><!--java的mapper路径-->
+    <!--<resultMap id="唯一的标识"（自己起名字） type="映射的pojo对象"(实体类路径)>-->
+    <resultMap id="theTeacherResultMap" type="com.chilly.demo.entity.Teacher">
+        <!--id column="表的主键字段，或者可以为查询语句中的别名字段"  property="映射pojo对象的主键属性" jdbcType="字段类型"(VARCHAR)) -->
+        <id column="teacher_id" property="teacher_id" jdbcType="VARCHAR"/>
+        <!--result column="表的一个字段（可以为任意表的一个字段）" jdbcType="字段类型" property="映射到pojo对象的一个属性（须为type定义的pojo对象中的一个属性）"-->
+        <result column="teacher_name" property="teacher_name" jdbcType="VARCHAR"/>
+        <result column="teacher_sex" property="teacher_sex" jdbcType="VARCHAR"/>
+        <result column="teacher_rank" property="teacher_rank" jdbcType="VARCHAR"/>
+        <result column="department_id" property="department_id" jdbcType="INTEGER"/>
+        <result column="department_name" property="department_name" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--教师的讲授课程-->
+    <resultMap id="theLectureResultMap" type="com.chilly.demo.entity.Lecture">
+        <!--id column="表的主键字段，或者可以为查询语句中的别名字段"  property="映射pojo对象的主键属性" jdbcType="字段类型"(VARCHAR)) -->
+        <id column="teacher_id" property="l_teacher_id" jdbcType="VARCHAR"/>
+        <!--result column="表的一个字段（可以为任意表的一个字段）" jdbcType="字段类型" property="映射到pojo对象的一个属性（须为type定义的pojo对象中的一个属性）"-->
+        <result column="course_id" property="l_course_id" jdbcType="VARCHAR"/>
+        <result column="course_time" property="l_course_time" jdbcType="VARCHAR"/>
+        <result column="course_name" property="l_course_name" jdbcType="VARCHAR"/>
+        <result column="course_sort" property="l_course_sort" jdbcType="VARCHAR"/>
+        <result column="course_exam" property="l_course_exam" jdbcType="VARCHAR"/>
+        <result column="course_credit" property="l_course_credit" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <select id="getTeacherList" resultMap="theTeacherResultMap">
+        select teacher.teacher_id,teacher_name,teacher_sex,teacher_rank,teacher.department_id,department.department_name
+        from teacher,department
+        where teacher.department_id = department.department_id
+    </select>
+
+    <insert id="addTeacher" parameterType="com.chilly.demo.entity.Teacher">
+        insert into teacher
+        values (#{teacher_id},#{teacher_name},#{teacher_sex},#{teacher_rank},#{department_id});
+    </insert>
+
+    <delete id="deleteTeacherById" parameterType="string">
+        delete from teacher
+        where teacher_id=#{teacherId};
+    </delete>
+
+    <select id="getTeacherById" parameterType="string" resultMap="theTeacherResultMap">
+        select teacher.teacher_id,teacher_name,teacher_sex,teacher_rank,teacher.department_id,department.department_name
+        from teacher,department
+        where teacher.department_id = department.department_id and teacher.teacher_id=#{teacherId};
+    </select>
+
+    <select id="getTeacherLectureById" parameterType="string" resultMap="theLectureResultMap">
+        select course.course_name,course_sort,course.course_id,course_credit,course_exam,lecture.course_time
+        from course,lecture
+        where course.course_id = lecture.course_id and lecture.teacher_id=#{teacherId}
+        order by lecture.course_time ASC;
+    </select>
+
+    <update id="updateTeacher" parameterType="com.chilly.demo.entity.Teacher">
+        update teacher
+        set
+        <if test="teacher_name != null">teacher_name =#{teacher_name},</if>
+        <if test="teacher_sex != null">teacher_sex =#{teacher_sex},</if>
+        <if test="teacher_rank != null">teacher_rank =#{teacher_rank},</if>
+        <if test="department_id != null">department_id =#{department_id}</if>
+        where teacher_id =#{teacher_id}
+    </update>
+</mapper>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <!--链接一个外部样式表-->
+    <link rel="stylesheet" th:href="@{/css/adminlte.min.css}">
+    <link rel="stylesheet" th:href="@{/css/all.min.css}">
+    <!--  悬浮按钮设计 -->
+    <style>
+        .hover {
+            bottom: 1.25rem;
+            position: fixed;
+            right: 1.25rem;
+            z-index: 1032;
+        }
+    </style>
+    <title>新增课程</title>
+</head>
+<body>
+<!--引入导航-->
+<div th:replace="left :: left_navbar"></div>
+<!--  主页面  -->
+<div class="content-wrapper">
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">新增课程信息</h3>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+            <form role="form" th:action="@{/course/addCourse}" method="post">
+
+                <!-- input states -->
+                <div class="form-group">
+                    <label class="col-form-label">课程编号</label>
+                    <input type="text" class="form-control is-valid" id="course_id" name="course_id" placeholder="课程编号">
+                </div>
+
+                <!-- input states -->
+                <div class="form-group">
+                    <label class="col-form-label">课程名称</label>
+                    <input type="text" class="form-control is-valid" id="course_name" name="course_name" placeholder="课程名称">
+                </div>
+
+                <div class="form-group">
+                    <!-- select -->
+                    <div class="form-group">
+                        <label>课程类型</label>
+                        <select class="form-control is-valid" id="course_sort" name="course_sort">
+                            <option>必修</option>
+                            <option>限选</option>
+                            <option>任选</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <!-- select -->
+                    <div class="form-group">
+                        <label>考核方式</label>
+                        <select class="form-control is-valid" id="course_exam" name="course_exam">
+                            <option>考试</option>
+                            <option>考查</option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <!-- input states -->
+                <div class="form-group">
+                    <label class="col-form-label">学分</label>
+                    <input type="text" class="form-control is-valid" id="course_credit" name="course_credit" placeholder="学分">
+                </div>
+
+                <!-- input states -->
+                <div class="form-group">
+                    <label class="col-form-label">备注</label>
+                    <input type="text" class="form-control is-valid" id="course_remark" name="course_remark" placeholder="备注">
+                </div>
+
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">提交</button>
+                </div>
+            </form>
+        </div>
+        <!-- /.card-body -->
+        <!--  返回按钮  -->
+        <a id="back-to-top" onclick="javascript:history.back(-1);" class="btn btn-primary hover" role="button" >
+            返回
+        </a>
+    </div>
+</div>
+</body>
+</html>

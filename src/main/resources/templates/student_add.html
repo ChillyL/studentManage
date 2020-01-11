@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <!--链接一个外部样式表-->
+    <link rel="stylesheet" th:href="@{/css/adminlte.min.css}">
+    <link rel="stylesheet" th:href="@{/css/all.min.css}">
+    <!--  悬浮按钮设计 -->
+    <style>
+        .hover {
+            bottom: 1.25rem;
+            position: fixed;
+            right: 1.25rem;
+            z-index: 1032;
+        }
+    </style>
+    <title>新增学生信息</title>
+</head>
+<body>
+<!--引入导航-->
+<div th:replace="left :: left_navbar"></div>
+<!--  主页面  -->
+<div class="content-wrapper">
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">新增学生信息</h3>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+            <form role="form" th:action="@{/student/addStudent}" method="post">
+
+                <!-- input states -->
+                <div class="form-group">
+                    <label class="col-form-label">学号</label>
+                    <input type="text" class="form-control is-valid" id="student_id" name="student_id" placeholder="学号">
+                </div>
+
+                <!-- input states -->
+                <div class="form-group">
+                    <label class="col-form-label">姓名</label>
+                    <input type="text" class="form-control is-valid" id="student_name" name="student_name" placeholder="姓名">
+                </div>
+
+                <div class="form-group">
+                    <!-- select -->
+                    <div class="form-group">
+                        <label>性别</label>
+                        <select class="form-control is-valid" id="student_sex" name="student_sex">
+                            <option>男</option>
+                            <option>女</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- input states -->
+                <div class="form-group">
+                    <label class="col-form-label">出生日期</label>
+    <!--                <input type="text" class="form-control is-valid" id="inputSuccess" placeholder="学号">-->
+                    <input class="form-control is-valid" type="date" value="yyyy-mm-dd" id="student_birth" name="student_birth">
+                </div>
+
+                <!-- input states -->
+                <div class="form-group">
+                    <label class="col-form-label">生源地</label>
+                    <input type="text" class="form-control is-valid" id="student_origin" name="student_origin" placeholder="生源地">
+                </div>
+
+                <div class="form-group">
+                    <!-- select -->
+                    <div class="form-group">
+                        <label>学院</label>
+                        <select class="form-control is-valid" id="student_department" name="student_department">
+                            <option>中文</option>
+                            <option>外国语</option>
+                            <option>经管</option>
+                            <option>交通</option>
+                            <option>电子</option>
+                            <option>计算机</option>
+                            <option>土建</option>
+                            <option>机械</option>
+                            <option>化工</option>
+                            <option>数理</option>
+                            <option>政法</option>
+                            <option>纺织</option>
+                            <option>艺术</option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <!-- select -->
+                    <div class="form-group">
+                        <label>政治面貌</label>
+                        <select class="form-control is-valid" id="student_status" name="student_status">
+                            <option>团员</option>
+                            <option>预备党员</option>
+                            <option>党员</option>
+                            <option>群众</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <!-- select -->
+                    <div class="form-group">
+                        <label>是否住宿</label>
+                        <select class="form-control is-valid" id="student_resident" name="student_resident">
+                            <option>true</option>
+                            <option>false</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- input states -->
+                <div class="form-group">
+                    <label class="col-form-label">宿舍电话</label>
+                    <input type="text" class="form-control is-valid" id="student_telephone" name="student_telephone" placeholder="宿舍电话">
+                </div>
+
+
+
+
+
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">提交</button>
+                </div>
+            </form>
+        </div>
+        <!-- /.card-body -->
+        <!--  返回按钮  -->
+        <a id="back-to-top" onclick="javascript:history.back(-1);" class="btn btn-primary hover" role="button" >
+            返回
+        </a>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <!--链接一个外部样式表-->
+    <link rel="stylesheet" th:href="@{/css/adminlte.min.css}">
+    <link rel="stylesheet" th:href="@{/css/all.min.css}">
+    <!--  悬浮按钮设计 -->
+    <style>
+        .hover {
+            bottom: 1.25rem;
+            position: fixed;
+            right: 1.25rem;
+            z-index: 1032;
+        }
+    </style>
+    <title>教师信息修改</title>
+</head>
+<body>
+<!--引入导航-->
+<div th:replace="left :: left_navbar"></div>
+<!--  主页面  -->
+<div class="content-wrapper">
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">修改教师信息</h3>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+            <form role="form" th:action="@{/teacher/updateTeacher}" th:object="${teacher}" method="post">
+
+                <!-- input states -->
+                <div class="form-group">
+                    <label class="col-form-label">教师编号</label>
+                    <input type="text" class="form-control is-valid" id="teacher_id" name="teacher_id" placeholder="教师编号" th:value="*{teacher_id}">
+                </div>
+
+                <!-- input states -->
+                <div class="form-group">
+                    <label class="col-form-label">姓名</label>
+                    <input type="text" class="form-control is-valid" id="teacher_name" name="teacher_name" placeholder="姓名" th:value="*{teacher_name}">
+                </div>
+
+                <div class="form-group">
+                    <!-- select -->
+                    <div class="form-group">
+                        <label>性别</label>
+                        <select class="form-control is-valid" id="teacher_sex" name="teacher_sex">
+                            <option th:selected="*{teacher_sex}" style="display:none" th:text="*{teacher_sex}">}</option>
+                            <option>男</option>
+                            <option>女</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <!-- select -->
+                    <div class="form-group">
+                        <label>职称</label>
+                        <select class="form-control is-valid" id="teacher_rank" name="teacher_rank">
+                            <option th:selected="*{teacher_rank}" style="display:none" th:text="*{teacher_rank}">}</option>
+                            <option>讲师</option>
+                            <option>副教授</option>
+                            <option>教授</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <!-- select -->
+                    <div class="form-group">
+                        <label>学院</label>
+                        <select class="form-control is-valid" id="department_name" name="department_name">
+                            <option th:selected="*{department_name}" style="display:none" th:text="*{department_name}">}</option>
+                            <option>中文</option>
+                            <option>外国语</option>
+                            <option>经管</option>
+                            <option>交通</option>
+                            <option>电子</option>
+                            <option>计算机</option>
+                            <option>土建</option>
+                            <option>机械</option>
+                            <option>化工</option>
+                            <option>数理</option>
+                            <option>政法</option>
+                            <option>纺织</option>
+                            <option>艺术</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">提交</button>
+                </div>
+            </form>
+        </div>
+        <!-- /.card-body -->
+        <!--  返回按钮  -->
+        <a id="back-to-top" onclick="javascript:history.back(-1);" class="btn btn-primary hover" role="button" >
+            返回
+        </a>
+    </div>
+</div>
+</body>
+</html>

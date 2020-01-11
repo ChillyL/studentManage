@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chilly.demo.mapper.DepartmentMapper"><!--java的mapper路径-->
+    <!--<resultMap id="唯一的标识"（自己起名字） type="映射的pojo对象"(实体类路径)>-->
+    <resultMap id="theDepartmentResultMap" type="com.chilly.demo.entity.Department">
+        <!--id column="表的主键字段，或者可以为查询语句中的别名字段"  property="映射pojo对象的主键属性" jdbcType="字段类型"(VARCHAR)) -->
+        <id column="department_id" property="department_id" jdbcType="INTEGER"/>
+        <!--result column="表的一个字段（可以为任意表的一个字段）" jdbcType="字段类型" property="映射到pojo对象的一个属性（须为type定义的pojo对象中的一个属性）"-->
+        <result column="department_name" property="department_name" jdbcType="VARCHAR"/>
+        <result column="department_remarks" property="department_remarks" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--<select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">-->
+    <select id="getAllDepartment" resultMap="theDepartmentResultMap">
+        select *
+        from department;
+    </select>
+
+    <insert id="addDepartment" parameterType="com.chilly.demo.entity.Department">
+        insert into department
+        values (#{department_id},#{department_name},#{department_remarks})
+    </insert>
+
+    <delete id="deleteDepartmentById" parameterType="integer">
+        delete from department
+        where department_id =#{departmentId};
+    </delete>
+
+    <select id="getDepartmentById" parameterType="integer" resultType="com.chilly.demo.entity.Department">
+        select *
+        from department
+        where department_id=#{departmentId}
+    </select>
+
+    <select id="getStudentDepartment" parameterType="integer" resultMap="com.chilly.demo.mapper.StudentMapper.theStudentResultMap">
+        select student.student_id,student_name
+        from department,student
+        where department.department_id = student.department_id
+        and department.department_id=#{departmentId}
+    </select>
+
+    <select id="getTeacherDepartment" parameterType="integer" resultMap="com.chilly.demo.mapper.TeacherMapper.theTeacherResultMap">
+        select teacher.teacher_id,teacher_name
+        from department,teacher
+        where department.department_id = teacher.department_id
+        and department.department_id=#{departmentId}
+    </select>
+</mapper>

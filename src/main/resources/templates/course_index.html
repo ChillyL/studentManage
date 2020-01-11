@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <!--链接一个外部样式表-->
+    <link rel="stylesheet" th:href="@{/css/adminlte.min.css}">
+    <link rel="stylesheet" th:href="@{/css/all.min.css}">
+    <!--  悬浮按钮设计 -->
+    <style>
+        .hover {
+            bottom: 1.25rem;
+            position: fixed;
+            right: 1.25rem;
+            z-index: 1032;
+        }
+    </style>
+    <title>课程档案</title>
+</head>
+<body>
+<!--引入导航-->
+<div th:replace="left :: left_navbar"></div>
+<!--  主页面  -->
+<nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">课程档案</h3>
+
+                    <div class="card-tools">
+                        <form role="form" th:action="@{/course/courseIntro}" method="post">
+                            <div class="input-group input-group-sm" style="width: 150px;">
+                                <input type="text" class="form-control float-right" id="courseId" name="courseId" placeholder="输入课程代号">
+
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary btn-block btn-flat" type="submit">
+                                        搜索
+                                    </button>
+                                </div>
+
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body table-responsive p-0" style="height: 100%;">
+                    <table class="table table-head-fixed">
+                        <thead>
+                        <tr>
+                            <th>课程编号</th>
+                            <th>课程名称</th>
+                            <th>课程类型</th>
+                            <th>考核方式</th>
+                            <th>学分</th>
+                            <th>备注</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:if="${courses.isEmpty()}">
+                            <td colspan="3">No student</td>
+                        </tr>
+                        <tr  th:each="course : ${courses}">
+                            <th scope="row" th:text="${course.course_id}">1</th>
+                            <td th:text="${course.course_name}"></td>
+                            <td th:text="${course.course_sort}"></td>
+                            <td th:text="${course.course_exam}"></td>
+                            <td th:text="${course.course_credit}"></td>
+                            <td th:text="${course.course_remark}"></td>
+
+                            <td><a th:href="@{/course/courseIntro(courseId=${course.course_id})}">详情</a></td>
+                            <td><a th:href="@{/course/deleteCourse(courseId=${course.course_id})}">删除</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <a id="back-to-top" href="/course/toAddCourse" class="btn btn-primary hover" role="button" th:href="@{/course/toAddCourse}">
+                        新增课程
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</nav>
+</body>
+</html>

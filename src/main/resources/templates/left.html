@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/adminlte.min.css}">
+    <title>life</title>
+</head>
+<body>
+<!-- 左侧导航 -->
+<aside class="main-sidebar sidebar-dark-primary elevation-4" th:fragment="left_navbar">
+    <!-- Logo -->
+    <a href="/user/index" class="brand-link">
+        <h3>教学管理系统</h3>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <!-- Sidebar user panel (optional) -->
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="info">
+                <a href="/student/index" class="d-block">学生信息</a>
+            </div>
+        </div>
+
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="info">
+                <a href="/teacher/index" class="d-block">教师信息</a>
+            </div>
+        </div>
+
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="info">
+                <a href="/course/index" class="d-block">课程档案</a>
+            </div>
+        </div>
+
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="info">
+                <a href="/department/index" class="d-block">学院信息</a>
+            </div>
+        </div>
+        <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+</aside>
+</body>
+</html>

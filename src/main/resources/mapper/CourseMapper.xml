@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chilly.demo.mapper.CourseMapper"><!--java的mapper路径-->
+    <!--<resultMap id="唯一的标识"（自己起名字） type="映射的pojo对象"(实体类路径)>-->
+    <resultMap id="theCourseResultMap" type="com.chilly.demo.entity.Course">
+        <!--id column="表的主键字段，或者可以为查询语句中的别名字段"  property="映射pojo对象的主键属性" jdbcType="字段类型"(VARCHAR)) -->
+        <id column="course_id" property="course_id" jdbcType="VARCHAR"/>
+        <!--result column="表的一个字段（可以为任意表的一个字段）" jdbcType="字段类型" property="映射到pojo对象的一个属性（须为type定义的pojo对象中的一个属性）"-->
+        <result column="course_name" property="course_name" jdbcType="VARCHAR"/>
+        <result column="course_sort" property="course_sort" jdbcType="VARCHAR"/>
+        <result column="course_exam" property="course_exam" jdbcType="VARCHAR"/>
+        <result column="course_credit" property="course_credit" jdbcType="INTEGER"/>
+        <result column="course_remark" property="course_remark" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="getCourseList" resultMap="theCourseResultMap">
+        select *
+        from course
+    </select>
+
+    <insert id="addCourse" parameterType="com.chilly.demo.entity.Course">
+        insert into course
+        values (#{course_id},#{course_name},#{course_sort},#{course_exam},#{course_credit},#{course_remark})
+    </insert>
+
+    <delete id="deleteCourseById" parameterType="string">
+        delete from course
+        where course_id =#{courseId};
+    </delete>
+
+    <select id="getCourseById" parameterType="string" resultType="com.chilly.demo.entity.Course">
+        select *
+        from course
+        where course_id=#{courseId}
+    </select>
+
+    <select id="getStudentCourse" parameterType="string" resultMap="com.chilly.demo.mapper.StudentMapper.theStudentResultMap">
+        select student.student_id,student_name
+        from course,grades,student
+        where course.course_id = grades.course_id and grades.student_id = student.student_id
+        and grades.course_id=#{courseId}
+    </select>
+
+    <select id="getTeacherCourse" parameterType="string" resultMap="com.chilly.demo.mapper.TeacherMapper.theTeacherResultMap">
+        select teacher.teacher_id,teacher_name
+        from course,lecture,teacher
+        where course.course_id = lecture.course_id and lecture.teacher_id = teacher.teacher_id
+        and course.course_id=#{courseId}
+    </select>
+
+    <update id="updateCourse" parameterType="com.chilly.demo.entity.Course">
+        update course
+        set
+        <if test="course_name != null">course_name =#{course_name},</if>
+        <if test="course_sort != null">course_sort =#{course_sort},</if>
+        <if test="course_exam != null">course_exam =#{course_exam},</if>
+        <if test="course_credit != null">course_credit =#{course_credit},</if>
+        <if test="course_remark != null">course_remark =#{course_remark}</if>
+        where course_id =#{course_id}
+    </update>
+</mapper>
