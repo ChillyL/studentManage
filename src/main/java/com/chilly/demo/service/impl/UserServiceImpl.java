@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
+import static com.chilly.demo.util.MD5Utils.codeMD5;
+
 /**
  * @auther ChillyLin
  * @date 2019/12/27
@@ -24,6 +26,6 @@ public class UserServiceImpl implements UserService{
      */
     @Override
     public User getUser(String userName, String userPassword){
-        return userMapper.getUser(userName,userPassword);
+        return userMapper.getUser(userName,codeMD5(userPassword));
     }
 }
