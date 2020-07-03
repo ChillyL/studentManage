@@ -1,12 +1,32 @@
 # studentManage 
 
-平台：IntelliJ IDEA
+### 技术栈
 
-前端：thymeleaf结合adminlte（基于bootstrap的轻量级后台模板）
+- 平台：IntelliJ IDEA
 
-后台：spring boot和MyBatis
+- 核心框架：spring boot2.2.2
 
-数据库：MySQL
+- 项目构建：JDK1.8、Maven 4
+
+- 持久层框架：MyBatis
+
+- 模板框架：Thymeleaf
+
+- 加密：MD5加密
+
+- 前端：tadminlte（基于bootstrap的轻量级后台模板）
+
+- 数据库：MySQL
+
+### 功能需求
+
+- 管理员登录
+- 学生信息管理
+- 教师信息管理
+- 课程档案管理
+- 学院信息管理
+
+### 数据库设计
 
 
 
