@@ -28,5 +28,5 @@
 
 ### 数据库设计
 
-
+![Image text](https://github.com/ChillyL/studentManage/blob/master/sql/sql.png)
 
